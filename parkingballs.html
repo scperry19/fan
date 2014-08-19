@@ -1,5 +1,132 @@
-<html>
+<!DoctypeHTML>
+<HTML>
 <head>
+  <div class="redball" draggable="true">
+    <div id="#redball" class="draggable">
+  <style type="text/css">
+  .redball {
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    height: 100px;
+    width: 100px;
+    border-radius: 150px;
+    background-color: red;
+    border-color: orange;
+    border-width: 3px;
+    border-style: solid;
+    box-shadow: 0 0 150px orange;
+    cursor: move;
+  }
+  
+  }
+  #button {
+    top:25px;
+    left:600px;
+  }};
+  
+
+  </style></div></div>
+
+
+
+
+<div class="yellowball" draggable="true">
+    <div id="#yellowball" class="draggable">
+  <style type="text/css">
+
+  .yellowball {
+    position: absolute;
+    left: 250px;
+    top: 150px;
+    height: 200px;
+    width: 200px;
+    border-radius: 150px;
+    background-color: yellow;
+    border-color: orange;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: 0 0 150px yellow;
+    cursor: move;
+  }
+  
+  }
+  #button {
+    top:25px;
+    left:600px;
+  }};
+  
+
+  </style></div></div>
+
+
+
+
+<div class="blueball" draggable="true">
+    <div id="#blueball" class="draggable">
+  <style type="text/css">
+
+  .blueball {
+    position: absolute;
+    left: 700px;
+    top: 225px;
+    height: 150px;
+    width: 150px;
+    border-radius: 150px;
+    background-color: blue;
+    border-color: teal;
+    border-width: 3px;
+    border-style: solid;
+    box-shadow: 0 0 150px lime;
+    cursor: move;
+  }
+  
+  }
+  #button {
+    top:25px;
+    left:600px;
+  }};
+  
+
+  </style></div></div>
+
+
+
+
+<div class="pball" draggable="true">
+    <div id="#pball" class="draggable">
+  <style type="text/css">
+
+  .pball {
+    position: absolute;
+    left: 1000px;
+    top: 125px;
+    height: 90px;
+    width: 90px;
+    border-radius: 150px;
+    background-color: purple;
+    border-color: teal;
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0 0 150px blue;
+    cursor: move;
+  }
+  
+  }
+  #button {
+    top:25px;
+    left:600px;
+  }};
+  
+
+  </style></div></div>
+
+
+
+
+
+
+
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="jquery_1.6.1.js"></script>
 <script type="text/javascript" src="jquery-ui-1.8.14.js"></script>
@@ -11,306 +138,55 @@
   <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
   <link rel="stylesheet" href="http://code.jquery.com/resources/demos/style.css">
 
-
+  
 <script>
-//declare global variables
-var thegame;
-thegame = new mygame;
-
-//create your object 
-function mygame(){
-  this.balls = [];
-//an object method to say something
-  this.sayhello = function (){
-    console.log ('hello world');
-  };
-  this.addball = function (jsonBall){ 
-    var newball = new ball();
-    jQuery.extend(newball, jsonBall);
-    this.balls.push(newball);
-    newball.show();
-  };
-  
-}
-
-function ball(){
-  var cssid;
-
-  var initialleft;
-  var initialtop;
-  this.debug = function (){
-     console.log ('my id is: ' + this.cssid);
-     console.log ('my image source is: ' + this.cssid);
-  };
-  this.show = function () {
-    var game = $("#game");
-    game.append("<img id='"+this.cssid+"' />");
-    this.element = $("#" + this.cssid);
-    this.element.css({ position:'absolute',left:this.initialleft,top:this.initialtop });
-    
-  };
-  this.move=function(dx,dy){
-    this.element.animate({ "left": "+=" +dx+ "px", "top": "+=" +dy+ "px" }, "slow" );
-  };
-
-}
-
-$(document).ready (function(){
-  var server = new ajaxServiceLayer();
-  var ballsFromJSON = server.getballs();
-  for (i=0;i<ballsFromJSON.length;i++){
-    thegame.addball(ballsFromJSON[i]);
-  }
-  
+$(document).ready(function() {
+console.log("ready!");
+$(".redball").fadeOut();
+$(".redball").fadeIn();
+$(".redball").animate({"left":"+=350px"},"slow");
+$(".redball").animate({"left":"-=350px"},"fast");
+$(".redball").animate({"top":"+=350px"},"slow");
+$(".redball").animate({"top":"-=350px"},"fast");
+$(".redball").draggable();
+$(".yellowball").draggable(); 
+$(".blueball").draggable(); 
+$(".pball").draggable(); 
+    $("#OpenDialog").click(function () {
+                $("#dialog").dialog({modal: true, height: 100, width: 100 });
+  });
 });
 
-function ajaxServiceLayer(){
-  this.getball = function(){
-    //name the return value
-    var retval;
-    /*
-    $.get("getball.aspx")
-      .done(function(data){
-        retval = JSON.parse(data);
-      });
-    */
-    //fake the server for now
-    //http://www.w3schools.com/json/json_syntax.asp
-    retval = JSON.parse('{"cssid":"#redball","initialleft":100,"initialtop":100}');
-    
-    return retval;
-  };
+ </script>
 
-  this.getballs = function(){
-    //name the return value
-    var retval;
-    /*
-    $.get("getballs.aspx")
-      .done(function(data){
-        retval = JSON.parse(data);
-      });
-    */
-    //fake the server for now
-    //http://www.w3schools.com/json/json_syntax.asp
-    retval = JSON.parse('[{"cssid":".redball,"initialleft":100,"initialtop":100},{"cssid":".greenball","initialleft":300,"initialtop":100},{"cssid":".blueball","initialleft":500,"initialtop":300},{"cssid":".pball","initialleft":700,"initialtop":300}]');
-    
-    return retval;
-  };
-  
-}
-</script>
-
-
-<div class="redball" draggable="true">
-    <div id="#redball" class="draggable">
-  <style type="text/css">
-  .redball {
-    position: top;
-    left: 200px;
-    top: 200px;
-    height: 100px;
-    width: 100px;
-    border-radius: 150px;
-    background-color: red;
-    border-color: #FFFF00;
-    border-width: 3px;
-    border-style: solid;
-    box-shadow: 0 0 150px lime;
-    cursor: move;
-    }
-  
-  }
-  #button {
-    top:25px;
-    left:600px;
-    }};
-    </style>
-  </div></div>
-
-<div class="greenball" draggable="true">
-    <div id="#greenball" class="draggable">
-  <style type="text/css">
-  .greenball {
-    position: top;
-    left: 400px;
-    top: 400px;
-    height: 100px;
-    width: 100px;
-    border-radius: 150px;
-    background-color: green;
-    border-color: #FFFF00;
-    border-width: 3px;
-    border-style: solid;
-    box-shadow: 0 0 150px lime;
-    cursor: move;
-    }
-  
-  }
-    }};
-    </style>
-  </div></div>
-
-
-<div class="blueball" draggable="true">
-    <div id="#blueball" class="draggable">
-  <style type="text/css">
-  .blueball {
-    position: top;
-    left: 400px;
-    top: 400px;
-    height: 100px;
-    width: 100px;
-    border-radius: 150px;
-    background-color: blue;
-    border-color: #FFFF00;
-    border-width: 3px;
-    border-style: solid;
-    box-shadow: 0 0 150px lime;
-    cursor: move;
-    }
-  
-  }
-    }};
-    </style>
-  </div></div>
-
-
-
-<div class="pball" draggable="true">
-    <div id="#pball" class="draggable">
-  <style type="text/css">
-  .pball {
-    position: top;
-    left: 600px;
-    top: 400px;
-    height: 100px;
-    width: 100px;
-    border-radius: 150px;
-    background-color: purple;
-    border-color: #FFFF00;
-    border-width: 3px;
-    border-style: solid;
-    box-shadow: 0 0 150px lime;
-    cursor: move;
-    }
-  
-  }
-    }};
-    </style>
-  </div></div>
+ 
 
 
 </head>
-<body>
-
-
-<div id="boxes">
-<table border="4px;" align= "right">
-        <tr>
-        <td><button id="diagupright"onclick="thegame.balls[3].move(-10,-10);">&#8598;</button></td>
-        <td><button id="up" onclick="thegame.balls[3].move(0,-10);">&#8593;</button></td>
-        <td><button id="diagupleft" onclick="thegame.balls[3].move(+10,-10);">&#8599;</button></td>
-        </tr>
-        <tr>
-        <td><button id="left" onclick="thegame.balls[3].move(-10,0);">&#8592;</button></td>
-        <td><button id="octagon" onclick="thegame.balls[3].move(-10,-10);thegame.balls[3].move(0,-10);thegame.balls[3].move(+10,-10);thegame.balls[3].move(+10,0);thegame.balls[3].move(+10,+10);thegame.balls[3].move(0,+10);thegame.balls[3].move(-10,+10);thegame.balls[3].move(-10,0);">o</button></td>
-        <td><button id="right" onclick="thegame.balls[3].move(+10,0);">&#8594;</button></td>
-        </tr>
-        <tr>
-        <td><button id="diagdownright" onclick="thegame.balls[3].move(+10,+10);">&#8600;</button></td>
-        <td><button id="down" onclick="thegame.balls[3].move(0,+10);">&#8595;</button></td>
-        <td><button id="diagdownleft" onclick="thegame.balls[3].move(-10,+10);">&#8601;</button></td>
-        
-        </tr>
-        </table>
-
-
-<table border="4px;" align= "right">
-        <tr>
-        <td><button id="diagupright"onclick="thegame.balls[2].move(-10,-10);">&#8598;</button></td>
-        <td><button id="up" onclick="thegame.balls[2].move(0,-10);">&#8593;</button></td>
-        <td><button id="diagupleft" onclick="thegame.balls[2].move(+10,-10);">&#8599;</button></td>
-        </tr>
-        <tr>
-        <td><button id="left" onclick="thegame.balls[2].move(-10,0);">&#8592;</button></td>
-        <td><button id="octagon" onclick="thegame.balls[2].move(-10,-10);thegame.balls[2].move(0,-10);thegame.balls[2].move(+10,-10);thegame.balls[2].move(+10,0);thegame.balls[2].move(+10,+10);thegame.balls[2].move(0,+10);thegame.balls[2].move(-10,+10);thegame.balls[2].move(-10,0);">o</button></td>
-        <td><button id="right" onclick="thegame.balls[2].move(+10,0);">&#8594;</button></td>
-        </tr>
-        <tr>
-        <td><button id="diagdownright" onclick="thegame.balls[2].move(+10,+10);">&#8600;</button></td>
-        <td><button id="down" onclick="thegame.balls[2].move(0,+10);">&#8595;</button></td>
-        <td><button id="diagdownleft" onclick="thegame.balls[2].move(-10,+10);">&#8601;</button></td>
-        
-        </tr>
-        </table>
-<p>
+<title></title>
+<body background="space1.jpg">
 
 
 
 
-
-<table border="4px;" align= "right">
-        <tr>
-        <td><button id="diagupright"onclick="thegame.balls[1].move(-10,-10);">&#8598;</button></td>
-        <td><button id="up" onclick="thegame.balls[1].move(0,-10);">&#8593;</button></td>
-        <td><button id="diagupleft" onclick="thegame.balls[1].move(+10,-10);">&#8599;</button></td>
-        </tr>
-        <tr>
-        <td><button id="left" onclick="thegame.balls[1].move(-10,0);">&#8592;</button></td>
-        <td><button id="octagon" onclick="thegame.balls[1].move(-10,-10);thegame.balls[1].move(0,-10);thegame.balls[1].move(+10,-10);thegame.balls[1].move(+10,0);thegame.balls[1].move(+10,+10);thegame.balls[1].move(0,+10);thegame.balls[1].move(-10,+10);thegame.balls[1].move(-10,0);">o</button></td>
-        <td><button id="right" onclick="thegame.balls[1].move(+10,0);">&#8594;</button></td>
-        </tr>
-        <tr>
-        <td><button id="diagdownright" onclick="thegame.balls[1].move(+10,+10);">&#8600;</button></td>
-        <td><button id="down" onclick="thegame.balls[1].move(0,+10);">&#8595;</button></td>
-        <td><button id="diagdownleft" onclick="thegame.balls[1].move(-10,+10);">&#8601;</button></td>
-        
-        </tr>
-        </table>
-
-
-
-<table border="4px" color="FF0000" align= "right">
-        <tr>
-        <td><button id="diagupright"onclick="thegame.balls[0].move(-10,-10);">&#8598;</button></td>
-        <td><button id="up" onclick="thegame.balls[0].move(0,-10);">&#8593;</button></td>
-        <td><button id="diagupleft" onclick="thegame.balls[0].move(+10,-10);">&#8599;</button></td>
-        </tr>
-        <tr>
-        <td><button id="left" onclick="thegame.balls[0].move(-10,0);">&#8592;</button></td>
-        <td><button id="octagon" onclick="thegame.balls[0].move(-10,-10);thegame.balls[0].move(0,-10);thegame.balls[0].move(+10,-10);thegame.balls[0].move(+10,0);thegame.balls[0].move(+10,+10);thegame.balls[0].move(0,+10);thegame.balls[0].move(-10,+10);thegame.balls[0].move(-10,0);">o</button></td>
-        <td><button id="right" onclick="thegame.balls[0].move(+10,0);">&#8594;</button></td>
-        </tr>
-        <tr>
-        <td><button id="diagdownright" onclick="thegame.balls[0].move(+10,+10);">&#8600;</button></td>
-        <td><button id="down" onclick="thegame.balls[0].move(0,+10);">&#8595;</button></td>
-        <td><button id="diagdownleft" onclick="thegame.balls[0].move(-10,+10);">&#8601;</button></td>
-        
-        </tr>
-        </table>
+<div id="wrapper">
+  <div id="options">
+    <div id="drag1" class="drag">
+    </div>
+    <!-- end of drag1 -->
 </div>
-      </p>
-      <p>
-        <div id="game"></div>
-      </p>
+</div>
+</div>
 
 
 
 
-<button onclick="thegame.balls[0].debug();" align="right">debug 1</button>
-<button id="PageRefresh" align="right">Refresh</button>
 
 
-<script type="text/javascript">
- 
-  $('#PageRefresh').click(function() {
- 
-            location.reload();
- 
-  });
-  </script>
+
+
+
 
 
 </body>
 </html>
-
