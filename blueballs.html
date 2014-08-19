@@ -19,8 +19,13 @@ function mygame(){
     jQuery.extend(greenball, JSON.parse(fromServer));
     greenball.debug();
     greenball.show();
-
-
+var images = [
+        'ball.jpg',
+        'ball.jpg',
+        'ball.jpg'
+    ];
+    var randomNumber = Math.floor( Math.random() * images.length );
+$.backstretch([images[randomNumber]); 
     
     };
 
@@ -61,6 +66,8 @@ function ball(){
  
             location.reload();
  
+
+
   });
   </script>
 <div id="game"></div>
